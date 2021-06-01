@@ -1,26 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import "./App.css";
+import Table, { User } from "./Components/Table";
+
+type MyState = {
+  users: User[];
+};
+
+class App extends React.Component<{}, MyState> {
+  // constructor(props:any){
+  //   super(props)
+  //   this.state.users = []
+  // }
+  state: MyState = {
+    users: [
+      {
+        name: "Cloud",
+        job: "Merc",
+      },
+      {
+        name: "Barret",
+        job: "Bar owner",
+      },
+      {
+        name: "Tifa",
+        job: "Bartender",
+      },
+      {
+        name: "Aerith",
+        job: "Flower girl",
+      },
+    ],
+  };
+  removeUser = (index: any) => {
+    const { users } = this.state;
+    this.setState({
+      users: users.filter((_, i) => {
+        return i !== index;
+      }),
+    });
+  };
+  render() {
+    return (
+      <div className="container">
+        <Table users={this.state.users} removeUser={this.removeUser} />
+      </div>
+    );
+  }
 }
 
 export default App;
